@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemon-nginx
+  labels:
+    name: nginx-d
+spec:
+  selector:
+    matchLabels:
+      name: nginx-d
+  template:
+    metadata:
+      labels:
+        name: nginx-d
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: daemonvol
+          mountPath: /usr/share/nginx/html
+
+      volumes:
+      - name: daemonvol
+        hostPath: 
+          path: /daemonvol

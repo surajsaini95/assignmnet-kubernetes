@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nginx-deploy-pv
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local-storage
+  local:
+    path: /mnt/sda1/nginx-deploy-local-data
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: minion
+          operator: In
+          values:
+          - kevin
+
+
+
+# using hostPath for PV
+
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: nginx-deploy-pv
+# spec:
+#   storageClassName: standard
+#   persistentVolumeReclaimPolicy: Retain
+#   capacity:
+#     storage: 5Gi
+#   accessModes:
+#     - ReadWriteMany
+#   hostPath:
+#     path: /nginx-deploy-pv-data

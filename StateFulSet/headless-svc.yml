@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-stateful-svc
+  labels:
+    app: nginx-stateful
+spec:
+  selector:
+    app: nginx-stateful
+  ports:
+  - port: 80
+  clusterIP: None

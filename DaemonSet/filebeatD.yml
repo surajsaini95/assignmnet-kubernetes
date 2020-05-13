@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemon-filebeat
+spec:
+  selector:
+      matchLabels:
+        name: filebeat-pod
+  template:
+    metadata:
+      labels:
+        name: filebeat-pod
+    spec:
+      containers:
+      - name: filebeat
+        image: store/elastic/filebeat:7.6.2
+        resources:
+          limits:
+            memory: 100Mi
+          requests:
+            cpu: 50m
+            memory: 100Mi
